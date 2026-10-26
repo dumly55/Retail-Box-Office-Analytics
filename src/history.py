@@ -75,7 +75,7 @@ def fill_from_history(actuals: pd.DataFrame, conn: sqlite3.Connection) -> tuple[
     keys = actuals["title"].map(title_key)
     restore = actuals["actual"].isna() & keys.isin(known)
     filled = actuals.copy()
-    filled.loc[restore, "actual"] = keys[restore].map(known)
+    filled["actual"] = actuals["actual"].fillna(keys.map(known))
     return filled, list(actuals.loc[restore, "title"])
 
 

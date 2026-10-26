@@ -190,8 +190,7 @@ def load_actuals(source: str) -> pd.DataFrame:
         time.sleep(SECONDS_BETWEEN_DOWNLOADS)
         retry = read_actuals(load_source(source)).drop_duplicates("title").set_index("title")
         for column in ("actual", "projection"):
-            blank = actuals[column].isna()
-            actuals.loc[blank, column] = actuals.loc[blank, "title"].map(retry[column])
+            actuals[column] = actuals[column].fillna(actuals["title"].map(retry[column]))
     return actuals
 
 
