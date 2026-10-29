@@ -6,6 +6,9 @@ output/*
 logs/*
 !logs/.gitkeep
 
+# API keys
+.env
+
 # Python
 __pycache__/
 *.pyc
